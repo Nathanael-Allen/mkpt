@@ -1,15 +1,28 @@
 const {mkdir, writeFile} = require('fs/promises');
 const { join } = require('path');
+let rootDir = "C:/personalprojects";
+let dirName;
 
-const argument = process.argv[3];
-let rootDir;
-if(argument === '-h'){
-    rootDir = __dirname
-}else{
-    rootDir = "C:/personalprojects"
+try {
+    if(process.argv[3]){
+    rootDir = process.argv[3]
+    }
+    dirName = join(rootDir, process.argv[2]);
+}
+catch(error){
+    if(error.code === 'ERR_INVALID_ARG_TYPE'){
+        console.log('ERROR: Invalid argument for path.')
+    }
+    else{
+        console.log(error)
+    }
+    return
 }
 
-const dirName = join(rootDir, process.argv[2]);
+
+
+
+
 
 const html = `
     <!DOCTYPE html>
@@ -24,6 +37,7 @@ const html = `
     <body>
     </body>
     </html>`
+
 const css = `
     :root{
         font-size: 16px;
@@ -95,5 +109,9 @@ makeNewDir(dirName)
 .catch((error)=>{
     if(error.code === 'EEXIST'){
         console.log('ERROR: Directory already exists')
-    }else{console.log(error)}
+    }
+    else if(error.code === 'ENOENT'){
+        console.log('ERROR: invalid path')
+    }
+    else{console.log(error)}
 })
