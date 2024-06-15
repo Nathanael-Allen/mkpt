@@ -1,5 +1,5 @@
 const {mkdir, writeFile} = require('fs/promises');
-const { join, dirname } = require('path');
+const { join } = require('path');
 const { spawn } = require('child_process');
 const { stdin, stdout } = require('process')
 const readline = require('readline')
