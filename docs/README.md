@@ -3,6 +3,6 @@
 
 #### Description
 
-I wrote this small Node js script to help me generate a generic web page/application project template. The script run from the command line takes two arguments, the first is the name of the directory you would like to create, and the second argument is the path you would like to save the directory to.
+I wrote this small Node js script to help me generate a generic web page/application project template. Running the script will prompt user to name the new directory, then the path where they want to save it (pressing enter without inputing a path will default to the path set in config.json).
 
-Running the script will generate a new directory with: an index.html file with a basic html skeleton, a styles.css file with my basic css reset, and an empty main.js file.
+After getting inputs the script will generate a new directory with: an index.html file with a basic html skeleton, a styles.css file with my basic css reset, and an empty main.js file.

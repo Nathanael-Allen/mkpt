@@ -1,37 +1,9 @@
 const {mkdir, writeFile} = require('fs/promises');
 const { join } = require('path');
 const { spawn } = require('child_process');
-let rootDir = "C:/personalprojects";
-let dirName;
-
-function openCode(){
-    const child =
-    spawn(
-        'code', [dirName],
-        { shell: true }
-    );
-
-child.stderr.on('data',
-    (data) => {
-        console.error(`stderr: ${data}`);
-    });
-}
-
-try {
-    if(process.argv[3]){
-    rootDir = process.argv[3]
-    }
-    dirName = join(rootDir, process.argv[2]);
-}
-catch(error){
-    if(error.code === 'ERR_INVALID_ARG_TYPE'){
-        console.log('ERROR: Invalid argument for path.')
-    }
-    else{
-        console.log(error)
-    }
-    return
-}
+const { stdin, stdout } = require('process')
+const readline = require('readline')
+const { defaultPath } = require('./config.json');
 
 const html = `
 <!DOCTYPE html>
@@ -98,31 +70,60 @@ img {
     height: auto;
 }
 ` 
-
-async function makeNewDir(dirName){
-    return await mkdir(dirName);
+async function getInputs(){
+    const rl = readline.createInterface({
+        input: stdin,
+        output: stdout
+    })
+    
+    
+    const projectName = await new Promise(resolve => {
+        rl.question('Name of new project: ', resolve)
+    });
+    const customPath = await new Promise(resolve => {rl.question('Path to save project (enter to use default): ', resolve)});
+    rl.close();
+    if(customPath === ''){
+        return join(defaultPath, projectName);
+    }else{
+        return join(customPath, projectName);
+    }
 }
 
-makeNewDir(dirName)
-.then(async () => {
-    return await writeFile(join(dirName, 'index.html'), html)
-})
-.then(async () => {
-    return await writeFile(join(dirName, 'main.js'), '')
-})
-.then(async () => {
-    return await writeFile(join(dirName, 'styles.css'), css)
-})
-.then(() => {
-    console.log('Directory successfully created at: ' + dirName)
-})
-.then(openCode)
-.catch((error) => {
-    if(error.code === 'EEXIST'){
-        console.log('ERROR: Directory already exists')
+async function openCode(dirName){
+    const child =
+    spawn(
+        'code', [dirName],
+        { shell: true }
+    );
+
+    child.stderr.on('data',
+        (data) => {
+            console.error(`stderr: ${data}`);
+        });
+}
+
+async function makeTemplateFiles(dirName){
+    try {
+        await mkdir(dirName);
+        await writeFile(join(dirName, 'index.html'), html)
+        await writeFile(join(dirName, 'styles.css'), css)
+        await writeFile(join(dirName, 'main.js'), '');
     }
-    else if(error.code === 'ENOENT'){
-        console.log('ERROR: invalid path')
+    catch (error){
+        console.log(`ERROR: ${error.message}`)
     }
-    else{console.log(error)}
-})
+}
+
+async function createProject(){
+    try{
+        const dirPath = await getInputs();
+        await makeTemplateFiles(dirPath);
+        console.log('Directory successfully created at: ' + dirPath);
+        await openCode(dirPath);
+    }
+    catch (error){
+        console.log(`ERROR: ${error.message}`)
+    }
+}
+
+createProject();
