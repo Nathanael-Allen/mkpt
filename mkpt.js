@@ -64,7 +64,7 @@ html {
     font-family: 'Segoe UI', sans-serif;
     background-color: var(--bg-color);
     color: var(--txt-color);
-    max-width: 1200px;
+    max-width: 1920px;
     margin: auto;
 }
 
