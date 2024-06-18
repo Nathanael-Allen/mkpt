@@ -11,6 +11,7 @@ async function createProject(){
     }
     catch (error){
         console.log(`ERROR: ${error.message}`)
+        process.exit()
     }
 }
 

@@ -12,6 +12,7 @@ async function makeTemplateFiles(dirName){
     }
     catch (error){
         console.log(`ERROR: ${error.message}`)
+        process.exit()
     }
 }
 
