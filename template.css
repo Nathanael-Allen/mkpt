@@ -1,0 +1,48 @@
+:root{
+    font-size: 16px;
+    --bg-color: #0000;
+    --bg-color-2: #0000;
+    --bg-color-3: #0000;
+    --txt-color: white;
+    --accent-color: #0000;
+    --accent-color-2: #0000;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--txt-color);
+    max-width: 1920px;
+    margin: auto;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+a{
+    text-decoration: none;
+    color: var(--txt-color);
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul, button {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}

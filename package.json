@@ -1,0 +1,15 @@
+{
+  "name": "mkpt",
+  "version": "1.0.0",
+  "main": "mkpt.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node mkpt.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
