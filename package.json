@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "main": "mkpt.js",
   "directories": {
-    "doc": "docs",
-    "test": "test"
+    "doc": "docs"
   },
   "scripts": {
     "test": "node mkpt.js"
   },
-  "author": "",
+  "author": "Nathanael Allen",
   "license": "ISC",
-  "description": ""
+  "description": "A small script that generates my template files for building small static sites"
 }
