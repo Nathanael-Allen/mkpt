@@ -6,8 +6,8 @@ async function makeTemplateFiles(dirName){
         const htmlTemplate = await readFile('template.html');
         const cssTemplate = await readFile('template.css');
         await mkdir(dirName);
-        await writeFile(join(dirName, 'test.html'), htmlTemplate);
-        await writeFile(join(dirName, 'test.css'), cssTemplate);
+        await writeFile(join(dirName, 'index.html'), htmlTemplate);
+        await writeFile(join(dirName, 'styles.css'), cssTemplate);
         await writeFile(join(dirName, 'main.js'), '');
     }
     catch (error){
